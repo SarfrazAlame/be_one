@@ -71,7 +71,11 @@ model organization {
   description String?
   logo        String?
   location    String?
-  address     String
+  zipcode     String
+  phone       String
+  district    String
+  city        String
+  state       String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
