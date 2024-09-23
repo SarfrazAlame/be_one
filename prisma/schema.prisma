@@ -67,9 +67,11 @@ model User {
 model organization {
   id          String  @id @default(uuid())
   name        String
+  mosquename  String
   description String?
   logo        String?
-  location    String
+  location    String?
+  address     String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
@@ -86,4 +88,3 @@ model Post {
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  String
 }
-
