@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <div>
           <Header />
-          <div className="">{children}</div>
+          <div className="w-full flex justce-center">{children}</div>
           <Footer />
         </div>
       </body>
