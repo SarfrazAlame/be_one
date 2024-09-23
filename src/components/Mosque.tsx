@@ -8,8 +8,11 @@ import { Form, FormField, FormItem, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { CreateOrganization } from "@/auth/action";
 
-const OrganizationSchema = z.object({
+export const OrganizationSchema = z.object({
   name: z.string(),
   mosquename: z.string(),
   logo: z.string().optional(),
@@ -24,13 +27,13 @@ const OrganizationSchema = z.object({
 const Mosque = () => {
   const { data: session } = useSession();
   const user = session?.user;
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof OrganizationSchema>>({
     resolver: zodResolver(OrganizationSchema),
     defaultValues: {
       name: user?.name || "",
       mosquename: "",
-      logo: "",
       location: "",
       city: "",
       zipcode: "",
@@ -40,8 +43,10 @@ const Mosque = () => {
     },
   });
 
-  function onsubmit(data: z.infer<typeof OrganizationSchema>) {
-    console.log(data);
+  async function onsubmit(data: z.infer<typeof OrganizationSchema>) {
+    await CreateOrganization(data);
+    toast.success("Organization created successfully");
+    router.push("/");
   }
 
   return (

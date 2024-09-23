@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import { getServerSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { setEngine } from "crypto";
@@ -67,3 +67,5 @@ export const authOptions: NextAuthOptions = {
     },
 }
 
+
+export const getAuthOptions = () => getServerSession(authOptions)
