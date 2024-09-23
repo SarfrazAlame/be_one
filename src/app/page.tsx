@@ -4,7 +4,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="h-screen w-full flex flex-col items-center gap-y-4">
+    <div className="h-screen w-full flex flex-col items-center gap-y-4 md:mt-5 mt-0 ">
       <h1 className="text-4xl text-center font-[800] text-slate-800 font-sans">
         Grow by helping each other
       </h1>
@@ -13,7 +13,6 @@ const page = () => {
         and resource sharing. Our goal is to strengthen the Ummah through unity
         and collective growth."
       </p>
-      {/* <Mosque /> */}
       <Slider />
     </div>
   );
