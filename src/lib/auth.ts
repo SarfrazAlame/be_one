@@ -2,8 +2,11 @@ import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { setEngine } from "crypto";
+import prisma from "./prisma";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 export const authOptions: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma),
     providers: [
         // CredentialsProvider({
         //     name:"Credentials",
@@ -39,6 +42,9 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         })
     ],
+    session: {
+        strategy: "jwt",
+    },
     callbacks: {
         async session({ session, token }) {
             if (session) {

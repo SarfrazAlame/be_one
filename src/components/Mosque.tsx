@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField, FormItem, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useSession } from "next-auth/react";
 
 const OrganizationSchema = z.object({
   name: z.string(),
@@ -21,10 +22,13 @@ const OrganizationSchema = z.object({
 });
 
 const Mosque = () => {
+  const { data: session } = useSession();
+  const user = session?.user;
+
   const form = useForm<z.infer<typeof OrganizationSchema>>({
     resolver: zodResolver(OrganizationSchema),
     defaultValues: {
-      name: "",
+      name: user?.name || "",
       mosquename: "",
       logo: "",
       location: "",

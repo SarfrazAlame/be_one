@@ -1,10 +1,20 @@
-'use client'
+"use client";
 import React from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 const Slider = () => {
-  const router = useRouter()
+  const router = useRouter();
+  const { data: session } = useSession();
+  const user = session?.user;
   return (
     <div className="w-full lg:flex justify-evenly lg:mt-20 mt-5 mx-2 sm:mx-0 ">
       <div className="lg:w-1/4 w-full flex flex-col items-center">
@@ -15,7 +25,35 @@ const Slider = () => {
           Create a community of your mosque on this platform to connect with our
           brothers around the world.
         </p>
-        <Button className="mb-12" onClick={()=>router.push('/create-community')}>Join Community</Button>
+        {user?.email ? (
+          <>
+            <Button
+              className="mb-12"
+              onClick={() => router.push("/create-community")}
+            >
+              Join Community
+            </Button>
+          </>
+        ) : (
+          <>
+            <Dialog>
+              <DialogTrigger className="bg-gray-900 px-3 py-2 rounded text-gray-100 text-[15px]">Join Community</DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle className="text-center my-2">
+                  First Sign up to create community
+                  </DialogTitle>
+                  <DialogTitle
+                    onClick={() => signIn()}
+                    className="bg-orange-500 text-slate-700 text-center my-2 py-3 rounded cursor-pointer"
+                  >
+                    Login with Google
+                  </DialogTitle>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
+          </>
+        )}
       </div>
 
       <div className="flex items-center justify-center mx-2 md:mx-0 ">
