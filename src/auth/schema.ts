@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 export const OrganizationSchema = z.object({
-    name: z.string(),
+    name: z.string().min(3),
+    email:z.string(),
     mosquename: z.string(),
     logo: z.string().optional(),
     location: z.string(),

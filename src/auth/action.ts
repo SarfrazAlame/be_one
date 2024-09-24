@@ -14,12 +14,13 @@ export const CreateOrganization = async (data: z.infer<typeof OrganizationSchema
         throw new Error("Invalid data")
     }
 
-    const { name, mosquename, location, city, zipcode, phone, district, state } = validatedData.data
+    const { name, email, mosquename, location, city, zipcode, phone, district, state } = validatedData.data
 
     try {
         await prisma.organization.create({
             data: {
                 name,
+                email,
                 mosquename,
                 location,
                 city,

@@ -1,20 +1,24 @@
-"use client";
-import { ArrowDownNarrowWide } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoAddCircleSharp, IoNotificationsOutline } from "react-icons/io5";
 import { CiSearch, CiSquareChevLeft } from "react-icons/ci";
-import { useRouter } from "next/navigation";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaMosque } from "react-icons/fa";
 import { BiSolidMessageAltCheck } from "react-icons/bi";
+import Link from "next/link";
+import { getAuthOptions } from "@/lib/auth";
+import { OrganizationByUserId } from "@/auth/data";
 
-const ListHeader = () => {
-  const { data: session } = useSession();
+const ListHeader = async () => {
+  const session = await getAuthOptions();
   const user = session?.user;
-  const router = useRouter();
+
+  if (!user) return <div>Loading...</div>;
+
+  const org = await OrganizationByUserId(user?.email!);
+
+  console.log(org);
 
   return (
     <div className="p-4 flex flex-col h-screen gap-y-2">
@@ -42,13 +46,14 @@ const ListHeader = () => {
         </div>
       </div>
 
-      <button
-        onClick={() => router.push("/create-community")}
-        className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1"
+      <Link
+        href="/create-community"
+        className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10
+        rounded px-1"
       >
         <IoAddCircleSharp size={28} className="text-green-600" />
         <p className="text-sm text-green-500">Add Mosque</p>
-      </button>
+      </Link>
       <div className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
         <CiSearch size={24} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Search</p>

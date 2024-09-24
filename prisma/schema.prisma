@@ -67,6 +67,7 @@ model User {
 model organization {
   id          String  @id @default(uuid())
   name        String
+  email       String   
   mosquename  String
   description String?
   logo        String?

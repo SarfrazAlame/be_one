@@ -23,6 +23,7 @@ const Mosque = () => {
     resolver: zodResolver(OrganizationSchema),
     defaultValues: {
       name: user?.name || "",
+      email: user?.email || "",
       mosquename: "",
       location: "",
       city: "",
@@ -46,7 +47,7 @@ const Mosque = () => {
   return (
     <>
       <div className="text-xl lg:mt-12 mt-2 font-semibold flex justify-center gap-20  text-orange-600">
-        <MoveLeft onClick={()=>router.back()} className="cursor-pointer " />
+        <MoveLeft onClick={() => router.back()} className="cursor-pointer " />
         Add your mosque here
         <div className="flex items-center justify-center">
           <IoMdArrowDropdown />
@@ -84,6 +85,20 @@ const Mosque = () => {
                       {...field}
                       placeholder="Mosque Name"
                       className="sm:w-96 w-[96vw] hover:ring-0 focus-visible:ring-1 h-12 border-none"
+                    />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="mb-2">
+                    <FormLabel>Your Email</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="your email"
+                      className="sm:w-96 w-[96vw]  hover:ring-0 focus-visible:ring-1 h-12 border-none"
                     />
                   </FormItem>
                 )}
@@ -147,22 +162,22 @@ const Mosque = () => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="zipcode"
+                render={({ field }) => (
+                  <FormItem className="mb-2">
+                    <FormLabel>Zip Code</FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="zip code"
+                      className="sm:w-96 w-[96vw]  hover:ring-0 focus-visible:ring-1 h-12 border-none"
+                    />
+                  </FormItem>
+                )}
+              />
             </div>
           </div>
-          <FormField
-            control={form.control}
-            name="zipcode"
-            render={({ field }) => (
-              <FormItem className="mb-2">
-                <FormLabel>Zip Code</FormLabel>
-                <Input
-                  {...field}
-                  placeholder="zip code"
-                  className="sm:w-96 w-[96vw]  hover:ring-0 focus-visible:ring-1 h-12 border-none"
-                />
-              </FormItem>
-            )}
-          />
 
           <Button
             type="submit"
