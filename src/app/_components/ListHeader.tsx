@@ -5,7 +5,11 @@ import { IoAddCircleSharp, IoNotificationsOutline } from "react-icons/io5";
 import { CiSearch, CiSquareChevLeft } from "react-icons/ci";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaMosque } from "react-icons/fa";
-import { BiSolidMessageAltCheck } from "react-icons/bi";
+import {
+  BiRightArrow,
+  BiRightArrowAlt,
+  BiSolidMessageAltCheck,
+} from "react-icons/bi";
 import Link from "next/link";
 import { getAuthOptions } from "@/lib/auth";
 import { UserWithOrganization } from "@/auth/data";
@@ -17,8 +21,6 @@ const ListHeader = async () => {
   if (!user) return <div>Loading...</div>;
 
   const org = await UserWithOrganization(user?.id!);
-
-  console.log(org);
 
   return (
     <div className="p-4 flex flex-col h-screen gap-y-2">
@@ -46,31 +48,59 @@ const ListHeader = async () => {
         </div>
       </div>
 
-      <Link
-        href="/create-community"
-        className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10
-        rounded px-1"
-      >
-        <IoAddCircleSharp size={28} className="text-green-600" />
-        <p className="text-sm text-green-500">Add Mosque</p>
-      </Link>
+      {org?.map((org) => {
+        const {
+          name,
+          email,
+          mosquename,
+          location,
+          city,
+          zipcode,
+          phone,
+          district,
+          state,
+        } = org;
+        if (!name)
+          return (
+            <div
+              key={org.name}
+              className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1"
+            >
+              <Link
+                href="/create-community"
+                className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10
+          rounded px-1"
+              >
+                <IoAddCircleSharp size={28} className="text-green-600" />
+                <p className="text-sm text-green-500">Add Mosque</p>
+              </Link>
+            </div>
+          );
+        return (
+          <div key={org.name} className=" text-green-400 flex items-center gap-3 hover:bg-gray-200 cursor-pointer h-10 rounded px-1 hover:gap-2 transition-all duration-500">
+            <button>{org.mosquename}</button>
+            <BiRightArrowAlt />
+          </div>
+        );
+      })}
+
       <div className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
         <CiSearch size={24} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Search</p>
       </div>
-      <div className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
+      <Link href={'/committee/communities'} className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
         <FaMosque size={20} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Communities</p>
-      </div>
-      <div className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
+      </Link>
+      <Link href={'/committee/members'} className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
         <HiMiniUserGroup size={20} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Committee Members</p>
-      </div>
+      </Link>
 
-      <div className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
+      <Link href={'/committee/messages'} className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
         <BiSolidMessageAltCheck size={20} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Message</p>
-      </div>
+      </Link>
 
       <div></div>
     </div>

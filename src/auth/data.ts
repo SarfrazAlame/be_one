@@ -7,26 +7,27 @@ export const UserWithOrganization = cache(async (userId: string) => {
             where: {
                 id: userId
             },
-            include: {
-                organizations: {
-                    select: {
-                        name: true,
-                        email: true,
-                        mosquename: true,
-                        location: true,
-                        city: true,
-                        zipcode: true,
-                        phone: true,
-                        district: true,
-                        state: true
-                    }
-                }
+            select: {
+                organizations: true
             }
         })
 
-        return data?.organizations.map((org)=>{
+        return data?.organizations.map((org) => {
             return org
         })
+    } catch (error) {
+        return []
+    }
+})
+
+export const CommunityWithOrganization = cache(async () => {
+    try {
+        const org = await prisma.organization.findMany({
+            include:{
+                user:true
+            }
+        })
+        return org
     } catch (error) {
         return []
     }
