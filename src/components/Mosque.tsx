@@ -24,6 +24,7 @@ export const OrganizationSchema = z.object({
   state: z.string(),
 });
 
+
 const Mosque = () => {
   const { data: session } = useSession();
   const user = session?.user;
@@ -44,9 +45,13 @@ const Mosque = () => {
   });
 
   async function onsubmit(data: z.infer<typeof OrganizationSchema>) {
-    await CreateOrganization(data);
-    toast.success("Organization created successfully");
-    router.push("/");
+    try {
+      await CreateOrganization(data);
+      toast.success("Organization created successfully");
+      router.push("/home");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -170,6 +175,7 @@ const Mosque = () => {
           />
 
           <Button
+            type="submit"
             variant={"outline"}
             className="sm:w-96 w-[96vw] mt-6 hover:bg-gray-700 hover:text-gray-100 h-12"
           >

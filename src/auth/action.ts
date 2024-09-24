@@ -1,20 +1,23 @@
+'use server'
 import { OrganizationSchema } from "@/components/Mosque"
-import { getUserId } from "@/lib/utils"
+import { getUserId } from "@/lib/UserId"
+import { revalidatePath } from "next/cache"
 import { z } from "zod"
+import prisma from "@/lib/prisma"
 
 export const CreateOrganization = async (data: z.infer<typeof OrganizationSchema>) => {
     const userId = await getUserId()
 
-    const validatedData = OrganizationSchema.safeParse(data)
+    const validatedData = OrganizationSchema.safeParse(data);
 
-    if (!validatedData.success) {
+    if (!validatedData.success || !userId) {
         throw new Error("Invalid data")
     }
 
     const { name, mosquename, location, city, zipcode, phone, district, state } = validatedData.data
 
     try {
-        await prisma?.organization.create({
+        await prisma.organization.create({
             data: {
                 name,
                 mosquename,
@@ -31,7 +34,9 @@ export const CreateOrganization = async (data: z.infer<typeof OrganizationSchema
                 }
             }
         })
+        revalidatePath("/create-community")
     } catch (error) {
-        return []
+        console.log(error)
     }
 }
+

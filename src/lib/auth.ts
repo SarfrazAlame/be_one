@@ -1,7 +1,5 @@
 import { getServerSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { setEngine } from "crypto";
 import prisma from "./prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
@@ -44,6 +42,9 @@ export const authOptions: NextAuthOptions = {
     ],
     session: {
         strategy: "jwt",
+    },
+    jwt: {
+        secret: process.env.JWT_SECRET,
     },
     callbacks: {
         async session({ session, token }) {
