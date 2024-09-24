@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <div className="w-full h-24 flex items-center justify-around">
       <Link
-        href={"/"}
+        href={"/home"}
         className="lg:text-3xl text-2xl font-[700] text-green-500 shadow-2xl rounded-full"
       >
         Ummah<span className="text-slate-700">Unity.com</span>

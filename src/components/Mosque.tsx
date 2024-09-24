@@ -11,19 +11,8 @@ import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { CreateOrganization } from "@/auth/action";
-
-export const OrganizationSchema = z.object({
-  name: z.string(),
-  mosquename: z.string(),
-  logo: z.string().optional(),
-  location: z.string(),
-  city: z.string(),
-  zipcode: z.string(),
-  phone: z.string(),
-  district: z.string(),
-  state: z.string(),
-});
-
+import { OrganizationSchema } from "@/auth/schema";
+import { MoveLeft } from "lucide-react";
 
 const Mosque = () => {
   const { data: session } = useSession();
@@ -48,7 +37,7 @@ const Mosque = () => {
     try {
       await CreateOrganization(data);
       toast.success("Organization created successfully");
-      router.push("/home");
+      router.push("/committee");
     } catch (error) {
       console.log(error);
     }
@@ -56,12 +45,13 @@ const Mosque = () => {
 
   return (
     <>
-      <h1 className="text-xl font-semibold text-center text-orange-600">
+      <div className="text-xl lg:mt-12 mt-2 font-semibold flex justify-center gap-20  text-orange-600">
+        <MoveLeft onClick={()=>router.back()} className="cursor-pointer " />
         Add your mosque here
         <div className="flex items-center justify-center">
           <IoMdArrowDropdown />
         </div>
-      </h1>
+      </div>
 
       <Form {...form}>
         <form
