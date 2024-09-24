@@ -23,8 +23,24 @@ export const UserWithOrganization = cache(async (userId: string) => {
 export const CommunityWithOrganization = cache(async () => {
     try {
         const org = await prisma.organization.findMany({
-            include:{
-                user:true
+            include: {
+                user: true
+            }
+        })
+        return org
+    } catch (error) {
+        return []
+    }
+})
+
+export const OrganizationById = cache(async (organizationId: string) => {
+    try {
+        const org = await prisma.organization.findUnique({
+            where: {
+                id: organizationId
+            },
+            include: {
+                user: true
             }
         })
         return org

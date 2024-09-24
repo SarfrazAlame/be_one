@@ -8,14 +8,17 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@radix-ui/react-dropdown-menu";
+import Link from "next/link";
 import React from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 const Committee = ({ org }: { org: OrganizationWithUser }) => {
   
   return (
-    <div>
-      <div className="w-full flex justify-between mt-5 border p-3 rounded-md cursor-pointer transition-all duration-500">
+    <>
+      <Link href={`/committee/${org.id}`}
+        className="w-full flex justify-between mt-5 border p-3 rounded-md cursor-pointer transition-all duration-500"
+      >
         <div className="w-full flex flex-col gap-y-3">
           <div className="flex items-center gap-4">
             <h1 className="font-semibold text-gray-700">{org.mosquename}</h1>
@@ -47,8 +50,8 @@ const Committee = ({ org }: { org: OrganizationWithUser }) => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </div>
-    </div>
+      </Link>
+    </>
   );
 };
 
