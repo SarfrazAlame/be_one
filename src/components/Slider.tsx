@@ -26,45 +26,45 @@ const Slider = () => {
           brothers around the world.
         </p>
         <div className="flex gap-2">
-        {user?.email ? (
-          <>
-            <Button
-              className="mb-12"
-              onClick={() => router.push("/create-community")}
-            >
-              Join Community
-            </Button>
-          </>
-        ) : (
-          <>
-            <Dialog>
-              <DialogTrigger className="bg-gray-900 px-3 py-2 rounded text-gray-100 text-[15px]">Join Community</DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle className="text-center my-2">
-                  First Sign up to create community
-                  </DialogTitle>
-                  <DialogTitle
-                    onClick={() => signIn()}
-                    className="bg-orange-500 text-slate-700 text-center my-2 py-3 rounded cursor-pointer"
-                  >
-                    Login with Google
-                  </DialogTitle>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
-          </>
-        )}
+          {user?.email ? (
+            <>
+              <Button
+                className="mb-12"
+                onClick={() => router.push("/create-community")}
+              >
+                Join Community
+              </Button>
+            </>
+          ) : (
+            <>
+              <Dialog>
+                <DialogTrigger className="bg-gray-900 h-10 px-3 py-2 rounded text-gray-100 text-[15px]">
+                  Join Community
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="text-center my-2">
+                      First Sign up to create community
+                    </DialogTitle>
+                    <DialogTitle
+                      onClick={() => signIn()}
+                      className="bg-orange-500 text-slate-700 text-center my-2 py-3 rounded cursor-pointer"
+                    >
+                      Login with Google
+                    </DialogTitle>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+            </>
+          )}
 
-        {user?.email&&(<>
           <Button
-          variant={"outline"}
-              className="mb-12"
-              onClick={() => router.push("/committee")}
-            >
-              See Community
-            </Button>
-        </>)}
+            variant={"outline"}
+            className="mb-12"
+            onClick={() => router.push("/committee")}
+          >
+            See Community
+          </Button>
         </div>
       </div>
 

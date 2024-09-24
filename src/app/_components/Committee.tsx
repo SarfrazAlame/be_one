@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { OrganizationWithUser } from "@/auth/definition";
 import {
   DropdownMenu,
@@ -13,10 +13,10 @@ import React from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 const Committee = ({ org }: { org: OrganizationWithUser }) => {
-  
   return (
     <>
-      <Link href={`/committee/${org.id}`}
+      <Link
+        href={`/committee/${org.id}`}
         className="w-full flex justify-between mt-5 border p-3 rounded-md cursor-pointer transition-all duration-500"
       >
         <div className="w-full flex flex-col gap-y-3">

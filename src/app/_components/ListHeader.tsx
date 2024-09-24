@@ -48,6 +48,19 @@ const ListHeader = async () => {
         </div>
       </div>
 
+      {org?.length === 0 && (
+        <div className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded ">
+          <Link
+            href="/create-community"
+            className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10
+        rounded px-1"
+          >
+            <IoAddCircleSharp size={28} className="text-green-600" />
+            <p className="text-sm text-green-500">Add Mosque</p>
+          </Link>
+        </div>
+      )}
+
       {org?.map((org) => {
         const {
           name,
@@ -64,40 +77,37 @@ const ListHeader = async () => {
           return (
             <div
               key={org.name}
-              className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1"
+              className=" text-green-400 flex items-center gap-3 hover:bg-gray-200 cursor-pointer h-10 rounded px-1 hover:gap-2 transition-all duration-500"
             >
-              <Link
-                href="/create-community"
-                className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10
-          rounded px-1"
-              >
-                <IoAddCircleSharp size={28} className="text-green-600" />
-                <p className="text-sm text-green-500">Add Mosque</p>
-              </Link>
+              <button>{org.mosquename}</button>
+              <BiRightArrowAlt />
             </div>
           );
-        return (
-          <div key={org.name} className=" text-green-400 flex items-center gap-3 hover:bg-gray-200 cursor-pointer h-10 rounded px-1 hover:gap-2 transition-all duration-500">
-            <button>{org.mosquename}</button>
-            <BiRightArrowAlt />
-          </div>
-        );
       })}
 
       <div className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
         <CiSearch size={24} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Search</p>
       </div>
-      <Link href={'/committee/communities'} className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
+      <Link
+        href={"/committee/communities"}
+        className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1"
+      >
         <FaMosque size={20} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Communities</p>
       </Link>
-      <Link href={'/committee/members'} className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
+      <Link
+        href={"/committee/members"}
+        className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1"
+      >
         <HiMiniUserGroup size={20} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Committee Members</p>
       </Link>
 
-      <Link href={'/committee/messages'} className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1">
+      <Link
+        href={"/committee/messages"}
+        className="flex items-center gap-2 hover:bg-gray-200 cursor-pointer h-10 rounded px-1"
+      >
         <BiSolidMessageAltCheck size={20} className="text-slate-600" />
         <p className="text-sm text-green-700 px-1">Message</p>
       </Link>
