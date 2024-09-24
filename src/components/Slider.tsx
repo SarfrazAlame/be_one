@@ -25,6 +25,7 @@ const Slider = () => {
           Create a community of your mosque on this platform to connect with our
           brothers around the world.
         </p>
+        <div className="flex gap-2">
         {user?.email ? (
           <>
             <Button
@@ -54,6 +55,17 @@ const Slider = () => {
             </Dialog>
           </>
         )}
+
+        {user?.email&&(<>
+          <Button
+          variant={"outline"}
+              className="mb-12"
+              onClick={() => router.push("/committee")}
+            >
+              See Community
+            </Button>
+        </>)}
+        </div>
       </div>
 
       <div className="flex items-center justify-center mx-2 md:mx-0 ">
