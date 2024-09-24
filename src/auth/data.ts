@@ -1,18 +1,32 @@
 import prisma from "@/lib/prisma"
 import { cache } from "react"
 
-export const OrganizationByUserId = cache(async (email: string) => {
-
+export const UserWithOrganization = cache(async (userId: string) => {
     try {
-        const organization = await prisma.organization.findMany({
+        const data = await prisma.user.findUnique({
             where: {
-                email
+                id: userId
             },
             include: {
-                user: true
+                organizations: {
+                    select: {
+                        name: true,
+                        email: true,
+                        mosquename: true,
+                        location: true,
+                        city: true,
+                        zipcode: true,
+                        phone: true,
+                        district: true,
+                        state: true
+                    }
+                }
             }
         })
-        return organization
+
+        return data?.organizations.map((org)=>{
+            return org
+        })
     } catch (error) {
         return []
     }

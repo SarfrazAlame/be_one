@@ -8,7 +8,7 @@ import { FaMosque } from "react-icons/fa";
 import { BiSolidMessageAltCheck } from "react-icons/bi";
 import Link from "next/link";
 import { getAuthOptions } from "@/lib/auth";
-import { OrganizationByUserId } from "@/auth/data";
+import { UserWithOrganization } from "@/auth/data";
 
 const ListHeader = async () => {
   const session = await getAuthOptions();
@@ -16,7 +16,7 @@ const ListHeader = async () => {
 
   if (!user) return <div>Loading...</div>;
 
-  const org = await OrganizationByUserId(user?.email!);
+  const org = await UserWithOrganization(user?.id!);
 
   console.log(org);
 

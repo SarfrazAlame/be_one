@@ -4,14 +4,18 @@ import { revalidatePath } from "next/cache"
 import { z } from "zod"
 import prisma from "@/lib/prisma"
 import { OrganizationSchema } from "./schema"
+import { redirect } from "next/navigation"
 
 export const CreateOrganization = async (data: z.infer<typeof OrganizationSchema>) => {
     const userId = await getUserId()
 
     const validatedData = OrganizationSchema.safeParse(data);
 
-    if (!validatedData.success || !userId) {
-        throw new Error("Invalid data")
+    if (!validatedData.success) {
+        return {
+            errors: validatedData.error.flatten().fieldErrors,
+            message: 'Missing Fields. failed to create post'
+        }
     }
 
     const { name, email, mosquename, location, city, zipcode, phone, district, state } = validatedData.data
@@ -35,9 +39,9 @@ export const CreateOrganization = async (data: z.infer<typeof OrganizationSchema
                 }
             }
         })
-        revalidatePath("/create-community")
     } catch (error) {
         console.log(error)
     }
+    revalidatePath("/committee")
+    redirect('/committee')
 }
-
