@@ -52,7 +52,6 @@ const Members = ({
   }
 
   return (
-    <div>
       <div className="my-4 ">
         <div className="flex items-center justify-center gap-4">
           <ArrowBigLeft
@@ -76,7 +75,7 @@ const Members = ({
           <p className="text-sm">{org.zipcode}</p>
           <p className="text-sm">{org.city}</p>
         </div>
-      </div> */}
+        </div> */}
         <div className="mx-12 my-4">
           {org.userId === userId && (
             <>
@@ -148,10 +147,11 @@ const Members = ({
             </>
           )}
 
-          <LocalMembers mems={mems} />
+          <div className="my-5">
+            <LocalMembers mems={mems} />
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

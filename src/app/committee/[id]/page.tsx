@@ -8,11 +8,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const org = (await OrganizationById(id)) as OrganizationWithUser;
   const userId = await getUserId();
   const Mems = await MemberByUserId(userId);
-  return (
-    <div>
-      <Members org={org} userId={userId} mems={Mems}/>
-    </div>
-  );
+  return <Members org={org} userId={userId} mems={Mems} />;
 };
 
 export default page;

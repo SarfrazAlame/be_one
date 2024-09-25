@@ -3,11 +3,11 @@ import ListHeader from "../_components/ListHeader";
 
 const Committeelayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-screen w-2/3 grid grid-cols-2">
-      <div className="flex items-center justify-end ">
+    <div className="h-screen w-full flex justify-between">
+      <div className="w-80">
         <ListHeader />
       </div>
-      <div className="w-full">{children}</div>
+      <div className="">{children}</div>
     </div>
   );
 };
