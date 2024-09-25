@@ -12,3 +12,8 @@ export const OrganizationSchema = z.object({
     district: z.string(),
     state: z.string(),
   });
+
+export const MemberSchema = z.object({
+  name: z.string(),
+  price: z.number(),
+});

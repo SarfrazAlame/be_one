@@ -1,9 +1,16 @@
 "use client";
 
 import { OrganizationWithUser } from "@/auth/definition";
+import { MemberSchema } from "@/auth/schema";
+import { Button } from "@/components/ui/button";
+import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Label } from "@radix-ui/react-dropdown-menu";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { IoIosAddCircle } from "react-icons/io";
+import { z } from "zod";
 
 const Members = ({
   org,
@@ -13,6 +20,15 @@ const Members = ({
   userId: string;
 }) => {
   const [open, setOpen] = React.useState(false);
+
+  const form = useForm<z.infer<typeof MemberSchema>>({
+    resolver: zodResolver(MemberSchema),
+    defaultValues: {
+      name: "",
+      price: 0,
+    },
+  });
+
   return (
     <div>
       <div className="my-4 ">
@@ -47,9 +63,43 @@ const Members = ({
               <div>
                 {open ? (
                   <>
-                    <div>
-                      <Input className="w-1/2" />
-                    </div>
+                    <Form {...form}>
+                      <form className="mx-3 relative">
+                        <FormField
+                          name="name"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem className="mb-2  flex items-center gap-2">
+                              <FormLabel className="text-[13px] text-slate-500">
+                                Name :{" "}
+                              </FormLabel>
+                              <Input
+                                {...field}
+                                placeholder="Name"
+                                className="placeholder:text-[13px] sm:w-96 w-[96vw] hover:ring-0 focus-visible:ring-1 h-12 border-none"
+                              />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          name="price"
+                          control={form.control}
+                          render={({ field }) => (
+                            <FormItem className="mb-2 flex items-center gap-2">
+                              <FormLabel className="text-[13px] text-slate-500">
+                                Price :{" "}
+                              </FormLabel>
+                              <Input
+                                {...field}
+                                placeholder="Price"
+                                className="placeholder:text-[13px] sm:w-96 w-[96vw] hover:ring-0 focus-visible:ring-1 h-12 border-none mx-1"
+                              />
+                            </FormItem>
+                          )}
+                        />
+                        <Button className="absolute right-20 my-1">Add</Button>
+                      </form>
+                    </Form>
                   </>
                 ) : (
                   <>
