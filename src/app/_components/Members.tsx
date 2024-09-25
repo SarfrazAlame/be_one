@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Member } from "@prisma/client";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -16,9 +17,11 @@ import { z } from "zod";
 const Members = ({
   org,
   userId,
+  mems,
 }: {
   org: OrganizationWithUser;
   userId: string;
+  mems: Member[];
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -32,9 +35,9 @@ const Members = ({
 
   async function onsubmit(data: z.infer<typeof MemberSchema>) {
     try {
-      console.log(data);
       await AddMember(data);
       toast.success("Member added");
+      setOpen(false);
     } catch (error) {
       console.log(error);
       toast.error("Member not added");
@@ -64,7 +67,7 @@ const Members = ({
         </div>
       </div> */}
         <div className="mx-12 my-4">
-          {org.userId === userId ? (
+          {org.userId === userId && (
             <>
               <div className="w-fit flex items-center gap-1 px-2 p-1.5 rounded transition-all duration-300 cursor-pointer hover:bg-slate-200">
                 <IoIosAddCircle size={20} className="text-slate-600" />
@@ -73,7 +76,7 @@ const Members = ({
                 </button>
               </div>
               <div>
-                {open ? (
+                {open && (
                   <>
                     <Form {...form}>
                       <form
@@ -129,19 +132,7 @@ const Members = ({
                       </form>
                     </Form>
                   </>
-                ) : (
-                  <>
-                    <div></div>
-                  </>
                 )}
-              </div>
-            </>
-          ) : (
-            <>
-              <div>
-                <p className="text-sm">
-                  - See All Members from {org.mosquename}
-                </p>
               </div>
             </>
           )}

@@ -64,7 +64,7 @@ export const AddMember = async (data: z.infer<typeof MemberSchema>) => {
             data: {
                 name: name,
                 price: price,
-                organization: {
+                user: {
                     connect: {
                         id: userId
                     }

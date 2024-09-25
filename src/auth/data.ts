@@ -48,3 +48,16 @@ export const OrganizationById = cache(async (organizationId: string) => {
         return []
     }
 })
+
+export const MemberByUserId = cache(async (userId: string) => {
+    try {
+        const org = await prisma.member.findMany({
+            where: {
+                userId: userId
+            }
+        })
+        return org
+    } catch (error) {
+        return []
+    }
+})
