@@ -1,14 +1,15 @@
 "use client";
 
+import { AddMember } from "@/auth/action";
 import { OrganizationWithUser } from "@/auth/definition";
 import { MemberSchema } from "@/auth/schema";
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Label } from "@radix-ui/react-dropdown-menu";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io";
 import { z } from "zod";
 
@@ -25,9 +26,20 @@ const Members = ({
     resolver: zodResolver(MemberSchema),
     defaultValues: {
       name: "",
-      price: 0,
+      price: "",
     },
   });
+
+  async function onsubmit(data: z.infer<typeof MemberSchema>) {
+    try {
+      console.log(data);
+      await AddMember(data);
+      toast.success("Member added");
+    } catch (error) {
+      console.log(error);
+      toast.error("Member not added");
+    }
+  }
 
   return (
     <div>
@@ -64,14 +76,17 @@ const Members = ({
                 {open ? (
                   <>
                     <Form {...form}>
-                      <form className="mx-3 relative">
+                      <form
+                        onSubmit={form.handleSubmit(onsubmit)}
+                        className="mx-3 relative"
+                      >
                         <FormField
                           name="name"
                           control={form.control}
                           render={({ field }) => (
                             <FormItem className="mb-2  flex items-center gap-2">
                               <FormLabel className="text-[13px] text-slate-500">
-                                Name :{" "}
+                                Name :
                               </FormLabel>
                               <Input
                                 {...field}
@@ -87,7 +102,7 @@ const Members = ({
                           render={({ field }) => (
                             <FormItem className="mb-2 flex items-center gap-2">
                               <FormLabel className="text-[13px] text-slate-500">
-                                Price :{" "}
+                                Price :
                               </FormLabel>
                               <Input
                                 {...field}
@@ -97,7 +112,20 @@ const Members = ({
                             </FormItem>
                           )}
                         />
-                        <Button className="absolute right-20 my-1">Add</Button>
+                        <div className="flex absolute right-20 my-1 gap-3">
+                          <Button
+                            variant={"outline"}
+                            onClick={() => {
+                              setOpen(false);
+                              form.reset();
+                            }}
+                          >
+                            Cancel
+                          </Button>
+                          <Button type="submit" className=" bg-gray-800">
+                            Add
+                          </Button>
+                        </div>
                       </form>
                     </Form>
                   </>
