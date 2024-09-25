@@ -65,7 +65,7 @@ model User {
 }
 
 model organization {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   email       String
   mosquename  String
@@ -77,12 +77,22 @@ model organization {
   district    String
   city        String
   state       String
+  members     Member[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+}
+
+model Member {
+  id    String @id @default(uuid())
+  name  String
+  price Int
+
+  organization   organization @relation(fields: [organizationId], references: [id])
+  organizationId String
 }
 
 model Post {
