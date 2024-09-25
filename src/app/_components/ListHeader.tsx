@@ -6,7 +6,6 @@ import { CiSearch, CiSquareChevLeft } from "react-icons/ci";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaMosque } from "react-icons/fa";
 import {
-  BiRightArrow,
   BiRightArrowAlt,
   BiSolidMessageAltCheck,
 } from "react-icons/bi";
@@ -17,8 +16,6 @@ import { UserWithOrganization } from "@/auth/data";
 const ListHeader = async () => {
   const session = await getAuthOptions();
   const user = session?.user;
-
-  if (!user) return <div>Loading...</div>;
 
   const org = await UserWithOrganization(user?.id!);
 
@@ -73,15 +70,16 @@ const ListHeader = async () => {
           district,
           state,
         } = org;
-        if (!name)
+        if (name)
           return (
-            <div
-              key={org.name}
+            <Link
+              href={`/committee/${org.id}`}
+              key={org.id}
               className=" text-green-400 flex items-center gap-3 hover:bg-gray-200 cursor-pointer h-10 rounded px-1 hover:gap-2 transition-all duration-500"
             >
               <button>{org.mosquename}</button>
               <BiRightArrowAlt />
-            </div>
+            </Link>
           );
       })}
 

@@ -13,6 +13,11 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io";
 import { z } from "zod";
+import { MdArrowRight } from "react-icons/md";
+import { BiLeftArrow } from "react-icons/bi";
+import { ArrowBigLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import LocalMembers from "./LocalMembers";
 
 const Members = ({
   org,
@@ -24,6 +29,7 @@ const Members = ({
   mems: Member[];
 }) => {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof MemberSchema>>({
     resolver: zodResolver(MemberSchema),
@@ -38,6 +44,7 @@ const Members = ({
       await AddMember(data);
       toast.success("Member added");
       setOpen(false);
+      form.reset();
     } catch (error) {
       console.log(error);
       toast.error("Member not added");
@@ -47,7 +54,11 @@ const Members = ({
   return (
     <div>
       <div className="my-4 ">
-        <div>
+        <div className="flex items-center justify-center gap-4">
+          <ArrowBigLeft
+            onClick={() => router.back()}
+            className="text-slate-600 cursor-pointer"
+          />
           <h1 className="text-center text-xl font-semibold text-slate-600 font-sans">
             {org.mosquename} Committee
           </h1>
@@ -136,6 +147,8 @@ const Members = ({
               </div>
             </>
           )}
+
+          <LocalMembers mems={mems} />
         </div>
       </div>
     </div>
