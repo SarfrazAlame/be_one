@@ -7,7 +7,7 @@ const Committeelayout = ({ children }: { children: React.ReactNode }) => {
       <div className="w-80">
         <ListHeader />
       </div>
-      <div className="">{children}</div>
+      <div className="w-3/4">{children}</div>
     </div>
   );
 };

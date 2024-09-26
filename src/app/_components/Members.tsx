@@ -52,17 +52,17 @@ const Members = ({
   }
 
   return (
-      <div className="my-4 ">
-        <div className="flex items-center justify-center gap-4">
-          <ArrowBigLeft
-            onClick={() => router.back()}
-            className="text-slate-600 cursor-pointer"
-          />
-          <h1 className="text-center text-xl font-semibold text-slate-600 font-sans">
-            {org.mosquename} Committee
-          </h1>
-        </div>
-        {/* <div className="my-8 mx-4 flex flex-col gap-4 items-center">
+    <div className="my-4 ">
+      <div className="flex items-center justify-center gap-4">
+        <ArrowBigLeft
+          onClick={() => router.back()}
+          className="text-slate-600 cursor-pointer"
+        />
+        <h1 className="text-center text-xl font-semibold text-slate-600 font-sans">
+          {org?.mosquename} Committee
+        </h1>
+      </div>
+      {/* <div className="my-8 mx-4 flex flex-col gap-4 items-center">
         <div className="flex gap-5 items-center">
           <p>Name :</p>
           <p className="text-sm">{org.name}</p>
@@ -76,82 +76,82 @@ const Members = ({
           <p className="text-sm">{org.city}</p>
         </div>
         </div> */}
-        <div className="mx-12 my-4">
-          {org.userId === userId && (
-            <>
-              <div className="w-fit flex items-center gap-1 px-2 p-1.5 rounded transition-all duration-300 cursor-pointer hover:bg-slate-200">
-                <IoIosAddCircle size={20} className="text-slate-600" />
-                <button className="text-sm" onClick={() => setOpen(true)}>
-                  Add Members
-                </button>
-              </div>
-              <div>
-                {open && (
-                  <>
-                    <Form {...form}>
-                      <form
-                        onSubmit={form.handleSubmit(onsubmit)}
-                        className="mx-3 relative"
-                      >
-                        <FormField
-                          name="name"
-                          control={form.control}
-                          render={({ field }) => (
-                            <FormItem className="mb-2  flex items-center gap-2">
-                              <FormLabel className="text-[13px] text-slate-500">
-                                Name :
-                              </FormLabel>
-                              <Input
-                                {...field}
-                                placeholder="Name"
-                                className="placeholder:text-[13px] sm:w-96 w-[96vw] hover:ring-0 focus-visible:ring-1 h-12 border-none"
-                              />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          name="price"
-                          control={form.control}
-                          render={({ field }) => (
-                            <FormItem className="mb-2 flex items-center gap-2">
-                              <FormLabel className="text-[13px] text-slate-500">
-                                Price :
-                              </FormLabel>
-                              <Input
-                                {...field}
-                                placeholder="Price"
-                                className="placeholder:text-[13px] sm:w-96 w-[96vw] hover:ring-0 focus-visible:ring-1 h-12 border-none mx-1"
-                              />
-                            </FormItem>
-                          )}
-                        />
-                        <div className="flex absolute right-20 my-1 gap-3">
-                          <Button
-                            variant={"outline"}
-                            onClick={() => {
-                              setOpen(false);
-                              form.reset();
-                            }}
-                          >
-                            Cancel
-                          </Button>
-                          <Button type="submit" className=" bg-gray-800">
-                            Add
-                          </Button>
-                        </div>
-                      </form>
-                    </Form>
-                  </>
-                )}
-              </div>
-            </>
-          )}
+      <div className="mx-12 my-4">
+        {org?.userId === userId && (
+          <>
+            <div className="w-fit flex items-center gap-1 px-2 p-1.5 rounded transition-all duration-300 cursor-pointer hover:bg-slate-200">
+              <IoIosAddCircle size={24} className="text-slate-600" />
+              <button className="text-sm" onClick={() => setOpen(true)}>
+                Add Members
+              </button>
+            </div>
+            <div className="w-full">
+              {open && (
+                <>
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onsubmit)}
+                      className="mx-3 relative lg:w-1/3"
+                    >
+                      <FormField
+                        name="name"
+                        control={form.control}
+                        render={({ field }) => (
+                          <FormItem className="mb-2  flex items-center gap-2 w-full">
+                            <FormLabel className="text-[13px] text-slate-500">
+                              Name
+                            </FormLabel>
+                            <Input
+                              {...field}
+                              placeholder="Name"
+                              className="placeholder:text-[13px] sm:w-full lg:w-72 hover:ring-0 focus-visible:ring-1 h-12 border-none"
+                            />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        name="price"
+                        control={form.control}
+                        render={({ field }) => (
+                          <FormItem className="mb-2 flex items-center gap-2 w-full">
+                            <FormLabel className="text-[13px] text-slate-500">
+                              Price
+                            </FormLabel>
+                            <Input
+                              {...field}
+                              placeholder="Price"
+                              className="placeholder:text-[13px] sm:w-full lg:w-72 hover:ring-0 focus-visible:ring-1 h-12 border-none mx-1"
+                            />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="flex absolute right-20 my-1 -mx-2 gap-3">
+                        <Button
+                          variant={"outline"}
+                          onClick={() => {
+                            setOpen(false);
+                            form.reset();
+                          }}
+                        >
+                          Cancel
+                        </Button>
+                        <Button type="submit" className=" bg-gray-800">
+                          Add
+                        </Button>
+                      </div>
+                    </form>
+                  </Form>
+                </>
+              )}
+            </div>
+          </>
+        )}
 
-          <div className="my-5">
-            <LocalMembers mems={mems} />
-          </div>
+        <div className="mt-10">
+          <LocalMembers mems={mems} />
         </div>
       </div>
+    </div>
   );
 };
 
