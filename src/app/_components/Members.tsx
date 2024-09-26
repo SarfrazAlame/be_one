@@ -33,7 +33,7 @@ const Members = ({
     resolver: zodResolver(MemberSchema),
     defaultValues: {
       name: "",
-      price:,
+      price: "",
     },
   });
 
@@ -49,15 +49,19 @@ const Members = ({
     }
   }
 
-  const totalePrice = mems.map((mem)=>{
+  const totalePrice = mems.map((mem) => {
     let a = 0;
-    a = a + mem.price;
+    a = a + Number(mem.price);
     return a;
-  })
+  });
 
-  console.log(totalePrice)
+  let sum = 0;
+  for (let i = 0; i < totalePrice.length; i++) {
+    sum = sum + totalePrice[i];
+  }
+
   return (
-    <div className="my-4 ">
+    <div className="my-4 w-full flex flex-col items-center justify-center">
       <div className="flex items-center justify-center gap-4">
         <ArrowBigLeft
           onClick={() => router.back()}
@@ -84,16 +88,20 @@ const Members = ({
       <div className="mx-12 my-4">
         {org?.userId === userId && (
           <>
-            <div className="flex items-center justify-between gap-4 w-full">
+            <div className="lg:w-4/5 sm:flex items-center justify-between gap-4 ">
               <div className="w-fit flex items-center gap-1 px-2 p-1.5 rounded transition-all duration-300 cursor-pointer hover:bg-slate-200">
-                <IoIosAddCircle size={24} className="text-slate-600" />
-                <button className="text-sm" onClick={() => setOpen(true)}>
+                <button className="text-sm flex items-center gap-1" onClick={() => setOpen(true)}>
+                  <IoIosAddCircle size={24} className="text-slate-600" />
                   Add Members
                 </button>
               </div>
-              <div>
-                <p>{mems.length} Members</p>
-                <p></p>
+              <div className="flex gap-10">
+                <p className="text-md font-[500] text-slate-500">
+                  Total Members {mems.length}{" "}
+                </p>
+                <p className="text-md font-[500] text-slate-500">
+                  Total price {sum}Rs
+                </p>
               </div>
             </div>
             <div className="w-full">
