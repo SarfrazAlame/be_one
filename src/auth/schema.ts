@@ -15,5 +15,5 @@ export const OrganizationSchema = z.object({
 
 export const MemberSchema = z.object({
   name: z.string().min(3),
-  price: z.string().min(1),
+  price: z.number().min(1),
 });

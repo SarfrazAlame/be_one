@@ -13,8 +13,6 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io";
 import { z } from "zod";
-import { MdArrowRight } from "react-icons/md";
-import { BiLeftArrow } from "react-icons/bi";
 import { ArrowBigLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import LocalMembers from "./LocalMembers";
@@ -35,7 +33,7 @@ const Members = ({
     resolver: zodResolver(MemberSchema),
     defaultValues: {
       name: "",
-      price: "",
+      price:,
     },
   });
 
@@ -51,6 +49,13 @@ const Members = ({
     }
   }
 
+  const totalePrice = mems.map((mem)=>{
+    let a = 0;
+    a = a + mem.price;
+    return a;
+  })
+
+  console.log(totalePrice)
   return (
     <div className="my-4 ">
       <div className="flex items-center justify-center gap-4">
@@ -79,11 +84,17 @@ const Members = ({
       <div className="mx-12 my-4">
         {org?.userId === userId && (
           <>
-            <div className="w-fit flex items-center gap-1 px-2 p-1.5 rounded transition-all duration-300 cursor-pointer hover:bg-slate-200">
-              <IoIosAddCircle size={24} className="text-slate-600" />
-              <button className="text-sm" onClick={() => setOpen(true)}>
-                Add Members
-              </button>
+            <div className="flex items-center justify-between gap-4 w-full">
+              <div className="w-fit flex items-center gap-1 px-2 p-1.5 rounded transition-all duration-300 cursor-pointer hover:bg-slate-200">
+                <IoIosAddCircle size={24} className="text-slate-600" />
+                <button className="text-sm" onClick={() => setOpen(true)}>
+                  Add Members
+                </button>
+              </div>
+              <div>
+                <p>{mems.length} Members</p>
+                <p></p>
+              </div>
             </div>
             <div className="w-full">
               {open && (
