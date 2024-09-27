@@ -85,12 +85,15 @@ const Members = ({
           <p className="text-sm">{org.city}</p>
         </div>
         </div> */}
-      <div className="mx-12 my-4">
+      <div className="mx-12 my-4 w-full">
         {org?.userId === userId && (
           <>
             <div className="lg:w-4/5 sm:flex items-center justify-between gap-4 ">
               <div className="w-fit flex items-center gap-1 px-2 p-1.5 rounded transition-all duration-300 cursor-pointer hover:bg-slate-200">
-                <button className="text-sm flex items-center gap-1" onClick={() => setOpen(true)}>
+                <button
+                  className="text-sm flex items-center gap-1"
+                  onClick={() => setOpen(true)}
+                >
                   <IoIosAddCircle size={24} className="text-slate-600" />
                   Add Members
                 </button>
@@ -166,7 +169,7 @@ const Members = ({
           </>
         )}
 
-        <div className="mt-10">
+        <div className="mt-10 mx-3">
           <LocalMembers mems={mems} />
         </div>
       </div>
